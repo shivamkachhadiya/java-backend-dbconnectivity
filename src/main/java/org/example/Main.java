@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         try {
+            //init class for connectivity
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://127.0.0.1:3306/college";
             String username = "root";
@@ -20,20 +21,30 @@ public class Main {
             con.setAutoCommit(true);
             System.out.println("connected");
 
+            //set a query for insert data
+
             String query = "INSERT INTO student VALUES (?, ?)";
             PreparedStatement stm = con.prepareStatement(query);
 
-            System.out.println("enter id");
-            int id = sc.nextInt();
-            sc.nextLine(); // consume leftover newline
+            for (int i=0;i<4;i++) {
 
-            System.out.println("enter name");
-            String name = sc.nextLine(); // allows full name with spaces
+                System.out.println("enter id");
+                int id = sc.nextInt();
+                sc.nextLine(); // consume leftover newline
 
-            stm.setInt(1, id);
-            stm.setString(2, name);
+                System.out.println("enter name");
+                String name = sc.nextLine(); // allows full name with spaces
 
-            stm.executeUpdate();
+
+                //ask data from the user
+
+                stm.setInt(1, id);
+                stm.setString(2, name);
+
+                //execute data
+
+                stm.executeUpdate();
+            }
             System.out.println("record inserted successfully");
 
             con.close();
